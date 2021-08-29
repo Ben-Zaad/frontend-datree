@@ -14,6 +14,7 @@ import Typography from '@material-ui/core/Typography';
 import Paper from '@material-ui/core/Paper';
 import KeyboardArrowDownIcon from '@material-ui/icons/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@material-ui/icons/KeyboardArrowUp';
+import styled from 'styled-components'
 
 const useRowStyles = makeStyles({
     root: {
@@ -23,18 +24,17 @@ const useRowStyles = makeStyles({
     },
 });
 
-function createData(name, powerstats, biography, appearnce, work, price) {
+function createData(name, combat, intelligence, speed, durability, power, image, gender, race) {
     return {
         name,
-        powerstats,
-        biography,
-        appearnce,
-        work,
-        price,
-        history: [
-            { date: '2020-01-05', customerId: '11091700', amount: 3 },
-            { date: '2020-01-02', customerId: 'Anonymous', amount: 1 },
-        ],
+        combat,
+        intelligence,
+        speed,
+        durability,
+        power,
+        image,
+        gender,
+        race
     };
 }
 
@@ -54,10 +54,11 @@ function Row(props) {
                 <TableCell component="th" scope="row">
                     {row.name}
                 </TableCell>
-                <TableCell align="right">{row.powerstats}</TableCell>
-                <TableCell align="right">{row.biography}</TableCell>
-                <TableCell align="right">{row.appearnce}</TableCell>
-                <TableCell align="right">{row.work}</TableCell>
+                <TableCell align="right">{row.combat}</TableCell>
+                <TableCell align="right">{row.intelligence}</TableCell>
+                <TableCell align="right">{row.speed}</TableCell>
+                <TableCell align="right">{row.durability}</TableCell>
+                <TableCell align="right">{row.power}</TableCell>
             </TableRow>
             <TableRow>
                 <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -69,25 +70,23 @@ function Row(props) {
                             <Table size="small" aria-label="purchases">
                                 <TableHead>
                                     <TableRow>
-                                        <TableCell>Date</TableCell>
-                                        <TableCell>Customer</TableCell>
-                                        <TableCell align="right">Amount</TableCell>
-                                        <TableCell align="right">Total price ($)</TableCell>
+                                        <TableCell>Image</TableCell>
+                                        <TableCell>Gender</TableCell>
+                                        <TableCell>Race</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {row.history.map((historyRow) => (
-                                        <TableRow key={historyRow.date}>
-                                            <TableCell component="th" scope="row">
-                                                {historyRow.date}
-                                            </TableCell>
-                                            <TableCell>{historyRow.customerId}</TableCell>
-                                            <TableCell align="right">{historyRow.amount}</TableCell>
-                                            <TableCell align="right">
-                                                {Math.round(historyRow.amount * row.price * 100) / 100}
-                                            </TableCell>
-                                        </TableRow>
-                                    ))}
+                                    <TableRow>
+                                        <TableCell>
+                                            <HeroImage src={row.image} />
+                                        </TableCell>
+                                        <TableCell >
+                                            {row.gender}
+                                        </TableCell>
+                                        <TableCell>
+                                            {row.race}
+                                        </TableCell>
+                                    </TableRow>
                                 </TableBody>
                             </Table>
                         </Box>
@@ -117,15 +116,13 @@ Row.propTypes = {
 };
 
 
-export default function CollapsibleTable({ serachedHero }) {
-    console.log("serachedHero", serachedHero);
-    const rows = [
-        createData('Frozen yoghurt', 159, 6.0, 24, 4.0, 3.99),
-        createData('Ice cream sandwich', 237, 9.0, 37, 4.3, 4.99),
-        createData('Eclair', 262, 16.0, 24, 6.0, 3.79),
-        createData('Cupcake', 305, 3.7, 67, 4.3, 2.5),
-        createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
-    ];
+export default function CollapsibleTable({ data }) {
+    console.log("serachedHero", data);
+    const rows = data.map(datum => {
+        return createData(datum.name, datum.powerstats.combat, datum.powerstats.intelligence, datum.powerstats.speed, datum.powerstats.durability, datum.powerstats.power, datum.image.url, datum.appearance.gender, datum.appearance.race);
+    });
+
+    console.log("ROWS", rows);
 
     return (
         <TableContainer component={Paper}>
@@ -134,10 +131,11 @@ export default function CollapsibleTable({ serachedHero }) {
                     <TableRow>
                         <TableCell />
                         <TableCell>name</TableCell>
-                        <TableCell align="right">powerstats</TableCell>
-                        <TableCell align="right">biography</TableCell>
-                        <TableCell align="right">appearnce</TableCell>
-                        <TableCell align="right">work</TableCell>
+                        <TableCell align="right">combat</TableCell>
+                        <TableCell align="right">inteligence</TableCell>
+                        <TableCell align="right">durability</TableCell>
+                        <TableCell align="right">speed</TableCell>
+                        <TableCell align="right">power</TableCell>
                     </TableRow>
                 </TableHead>
                 <TableBody>
@@ -149,3 +147,7 @@ export default function CollapsibleTable({ serachedHero }) {
         </TableContainer>
     );
 }
+
+const HeroImage = styled.img`
+    
+`

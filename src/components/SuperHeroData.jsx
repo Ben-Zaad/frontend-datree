@@ -10,11 +10,12 @@ import CollapsibleTable from './CollapsibleTable';
 class SuperHeroData extends React.Component {
     state = {
         serachedHero: [],
-        heroNameInput: 'spider-man',
+        heroNameInput: '',
     }
 
     sendRequest = async () => {
-        this.setState({ serachedHero: await getSuperHero(this.state.heroNameInput) })
+        this.setState({ serachedHero: [] });
+        this.setState({ serachedHero: await getSuperHero(this.state.heroNameInput) });
     }
 
     componentDidUpdate() {
