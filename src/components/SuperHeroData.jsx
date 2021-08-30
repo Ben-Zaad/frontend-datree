@@ -23,6 +23,7 @@ class SuperHeroData extends React.Component {
     }
 
     lastSearches = async () => {
+        this.setState({ lastSearches: [] })
         this.setState({ lastSearches: await getLastSearches() })
     }
 
@@ -34,10 +35,10 @@ class SuperHeroData extends React.Component {
                     <SendButton onClick={this.sendRequest} >Send</SendButton>
                     <SendButton onClick={this.lastSearches} >Get Last Searched Heros</SendButton>
                 </ColumnDiv>
-                {this.state.lastSearches.length > 0 && this.state.lastSearches.map((item, index) => {
+                {this.state.lastSearches?.length > 0 && this.state.lastSearches.map((item, index) => {
                     return <p key={index}>{item}</p>
                 })}
-                {this.state.serachedHero.length > 0 && <CollapsibleTable data={this.state.serachedHero} />}
+                {this.state.serachedHero?.length > 0 && <CollapsibleTable data={this.state.serachedHero} />}
             </AppDiv >
         );
     }
