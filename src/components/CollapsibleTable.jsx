@@ -117,12 +117,9 @@ Row.propTypes = {
 
 
 export default function CollapsibleTable({ data }) {
-    console.log("serachedHero", data);
     const rows = data.map(datum => {
         return createData(datum.name, datum.powerstats.combat, datum.powerstats.intelligence, datum.powerstats.speed, datum.powerstats.durability, datum.powerstats.power, datum.image.url, datum.appearance.gender, datum.appearance.race);
     });
-
-    console.log("ROWS", rows);
 
     return (
         <TableContainer component={Paper}>

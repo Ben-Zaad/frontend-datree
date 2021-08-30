@@ -1,5 +1,5 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 
 const useStyles = makeStyles((theme) =>
@@ -15,11 +15,9 @@ const useStyles = makeStyles((theme) =>
 
 export default function InputField({ input, setInput }) {
     const classes = useStyles();
-    console.log('input', input);
     return (
         <form className={classes.root} noValidate autoComplete="off">
             <TextField id="outlined-basic" label="Enter superhero name" variant="outlined" value={input} onChange={(event) => {
-                console.log('setInput', input);
                 setInput && setInput(event.target.value);
             }} />
         </form>
